@@ -1,7 +1,11 @@
+import os
 from django.db import models
 from rest_framework import serializers
 
 from django.utils.translation import gettext_lazy as _
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 
 class Author(models.Model):
@@ -32,7 +36,7 @@ class Book(models.Model):
     name = models.CharField(max_length=200, verbose_name=_("Name"))
     page_count = models.IntegerField(verbose_name=_("Page count"))
     price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Price"))
-    image = models.ImageField(upload_to='books/', blank=True, null=True, verbose_name=_("Image"))
+    image = models.ImageField(upload_to=f'{MEDIA_DIR}', blank=True, null=True, verbose_name=_("Image"))
     authors = models.ManyToManyField(Author, verbose_name=_("Authors"))
     categories = models.ManyToManyField(Category, verbose_name=_("Categories"))
 
