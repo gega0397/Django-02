@@ -12,7 +12,7 @@
         <ul>
             {% for book in books %}
                 <li>
-                    <h2>{{ book.name }}</h2>
+                    <h2> <a href="{% url 'market:web_get_one'  book.pk  %}" > {{ book.name }} </a></h2>
                     {% if book.image %}
                         <div> {{ book.image.url }} </div>
                         <img src="{{ book.image.url }}" alt="{{ book.name }}">

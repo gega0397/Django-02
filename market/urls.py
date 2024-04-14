@@ -15,6 +15,8 @@ wrong_api_url = r'api/books/(?P<product_id>\w+)/$'
 #     #re_path(r'^.*$', RedirectView.as_view(pattern_name='web_get_all')),
 # ]
 
+app_name = 'market'
+
 urlpatterns = [
     path(f'api/', get_all, name='products'),
     path(f'api/books/<int:product_id>', get_one, name='product'),
