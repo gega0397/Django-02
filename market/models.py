@@ -1,11 +1,11 @@
 import os
 from django.db import models
-from rest_framework import serializers
+
 
 from django.utils.translation import gettext_lazy as _
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+
+MEDIA_DIR = ''
 
 
 class Author(models.Model):
@@ -36,7 +36,7 @@ class Book(models.Model):
     name = models.CharField(max_length=200, verbose_name=_("Name"))
     page_count = models.IntegerField(verbose_name=_("Page count"))
     price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Price"))
-    image = models.ImageField(upload_to=f'{MEDIA_DIR}', blank=True, null=True, verbose_name=_("Image"))
+    image = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name=_("Image"))
     authors = models.ManyToManyField(Author, verbose_name=_("Authors"))
     categories = models.ManyToManyField(Category, verbose_name=_("Categories"))
 
@@ -46,24 +46,3 @@ class Book(models.Model):
     class Meta:
         verbose_name = _('Book')
         verbose_name_plural = _('Books')
-
-
-class AuthorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Author
-        fields = ['id', 'name', 'surname', 'birth_date']
-
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ['id', 'genre']
-
-
-class BookSerializer(serializers.ModelSerializer):
-    authors = AuthorSerializer(many=True, read_only=True)
-    categories = CategorySerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Book
-        fields = ['id', 'name', 'page_count', 'price', 'image', 'authors', 'categories']

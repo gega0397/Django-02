@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{  book.name }}</title>
+</head>
+<body>
+
+        <h2>{{ book.name }}</h2>
+        {% if book.image %}
+            <div> {{ book.image.url }} </div>
+            <img src="{{ book.image.url }}" alt="{{ book.name }}">
+        {% endif %}
+        <div>Page count: {{ book.page_count }}</div>
+        <div>Price: ${{ book.price }}</div>
+        <div>Authors:
+            {% for author in book.authors.all %}
+                {{ author.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        <div>Categories:
+            {% for category in book.categories.all %}
+                {{ category.genre }}
+            {% endfor %}
+        </div>
+
+</body>
+</html>
