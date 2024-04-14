@@ -4,8 +4,7 @@ from django.db import models
 
 from django.utils.translation import gettext_lazy as _
 
-
-MEDIA_DIR = ''
+BOOK_COVERS = ( ('hard', 'hard'), ('soft', 'soft'), ('spec', 'spec'),)
 
 
 class Author(models.Model):
@@ -33,12 +32,15 @@ class Category(models.Model):
 
 
 class Book(models.Model):
+    authors = models.ManyToManyField(Author, verbose_name=_("Authors"))
+    categories = models.ManyToManyField(Category, verbose_name=_("Categories"))
     name = models.CharField(max_length=200, verbose_name=_("Name"))
     page_count = models.IntegerField(verbose_name=_("Page count"))
     price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Price"))
     image = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name=_("Image"))
-    authors = models.ManyToManyField(Author, verbose_name=_("Authors"))
-    categories = models.ManyToManyField(Category, verbose_name=_("Categories"))
+    cover = models.CharField(choices=BOOK_COVERS, max_length=4, default="soft", verbose_name=_("Cover"))
+
+
 
     def __str__(self):
         return self.name
