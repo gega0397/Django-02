@@ -1,4 +1,5 @@
 from django.urls import path, re_path
+from django.views.generic import RedirectView
 
 from market.views import get_all, get_one, wrong_api_request, web_get_one, web_get_all
 
@@ -22,5 +23,5 @@ urlpatterns = [
     re_path(wrong_api_url, wrong_api_request, name='wrong_api'),
     path(f'', web_get_all, name='web_get_all'),
     path(f'books/<int:product_id>', web_get_one, name='web_get_one'),
-    # re_path(r'^.*$', RedirectView.as_view(pattern_name='web_get_all')),
+    re_path(r'^.*$', RedirectView.as_view(pattern_name='web_get_all')),
 ]
