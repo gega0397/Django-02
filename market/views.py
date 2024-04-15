@@ -46,12 +46,10 @@ def web_get_all(request):
 
     paginator = Paginator(books, 2)
 
-
     _page = page if page.isdigit() else '1'
 
     print(_page, type(_page))
     _books = paginator.get_page(_page)
-
 
     print(dir(_books))
     # print(_books.end_index())

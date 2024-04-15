@@ -1,10 +1,8 @@
-import os
 from django.db import models
-
 
 from django.utils.translation import gettext_lazy as _
 
-BOOK_COVERS = ( ('hard', 'hard'), ('soft', 'soft'), ('spec', 'spec'),)
+BOOK_COVERS = (('hard', 'hard'), ('soft', 'soft'), ('spec', 'spec'),)
 
 
 class Author(models.Model):
@@ -39,8 +37,6 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Price"))
     image = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name=_("Image"))
     cover = models.CharField(choices=BOOK_COVERS, max_length=4, default="soft", verbose_name=_("Cover"))
-
-
 
     def __str__(self):
         return self.name
