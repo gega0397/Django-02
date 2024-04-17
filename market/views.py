@@ -1,6 +1,6 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator
 from django.urls import reverse
 
 from market.models import Book
@@ -57,9 +57,12 @@ def web_get_all(request):
 
 
 def web_get_one(request, product_id):
-    book = Book.objects.get(id=product_id)
+    try:
+        book = Book.objects.get(id=product_id)
+    except Book.DoesNotExist as e:
+        return redirect(reverse('market:web_get_all'))
 
     if not book:
-        return redirect(reverse(web_get_all))
+        return redirect(reverse('market:web_get_all'))
 
     return render(request, 'market/book.html', {"book": book})

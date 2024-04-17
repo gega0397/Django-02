@@ -30,8 +30,8 @@ class Category(models.Model):
 
 
 class Book(models.Model):
-    authors = models.ManyToManyField(Author, verbose_name=_("Authors"))
-    categories = models.ManyToManyField(Category, verbose_name=_("Categories"))
+    authors = models.ManyToManyField(Author, related_name="books", verbose_name=_("Authors"))
+    categories = models.ManyToManyField(Category, related_name="books", verbose_name=_("Categories"))
     name = models.CharField(max_length=200, verbose_name=_("Name"))
     page_count = models.IntegerField(verbose_name=_("Page count"))
     price = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Price"))
